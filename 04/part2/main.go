@@ -52,9 +52,6 @@ func main() {
 					// fmt.Println(Passport)
 					validPassport++
 				}
-			} else {
-				fmt.Println("invalid passport\n")
-				fmt.Println(Passport)
 			}
 			fmt.Println()
 			Passport = ""
@@ -88,7 +85,6 @@ func hasValidValues(p string) bool {
 			}
 		}
 	}
-	fmt.Println(passportSlice)
 	return true
 }
 
@@ -122,13 +118,14 @@ func validValue(s []string) bool {
 		switch suffix {
 		case "cm":
 			if !(value >= 150 && value <= 193) {
-				fmt.Println("invalid cm value", value)
 				return false
 			}
 		case "in":
 			if !(value >= 59 && value <= 76) {
 				return false
 			}
+		default:
+			return false
 		}
 	case "hcl":
 		val := s[1]
