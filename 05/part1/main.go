@@ -27,11 +27,11 @@ func readLines(path string) ([]string, error) {
 func main() {
 	values, _ := readLines("input.txt")
 	for _, v := range values {
-		rowValue := v[0:7]
-		calcRow(rowValue)
+		calcRow(v)
 	}
 
 	calcRow("FBFBBFFRLR")
+	calcColumns("FBFBBFFRLR")
 }
 
 func popRows() []int {
@@ -43,11 +43,11 @@ func popRows() []int {
 }
 
 func calcRow(s string) int {
+	rowsOnly := s[0:7]
 	rows := popRows()
 
-	for _, v := range s {
+	for _, v := range rowsOnly {
 		letter := string(v)
-		fmt.Println(letter)
 		switch letter {
 		case "F":
 			rows = rows[0 : len(rows)/2]
@@ -65,22 +65,21 @@ func calcColumns(s string) int {
 
 	for _, v := range s {
 		letter := string(v)
-		fmt.Println(letter)
 		switch letter {
-		case "F":
+		case "R":
 			cols = cols[0 : len(cols)/2]
-		case "B":
+		case "L":
 			cols = cols[len(cols)/2:]
 		}
 	}
 
-	fmt.Println(cols)
-	return len(cols)
+	fmt.Println(s, cols[0])
+	return cols[0]
 }
 
 func popCols() []int {
 	var r []int
-	for i := 0; i < totalRows; i++ {
+	for i := 0; i < totalCols; i++ {
 		r = append(r, i)
 	}
 	return r
