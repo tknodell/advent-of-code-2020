@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"regexp"
 	"strconv"
 	"strings"
 )
@@ -62,7 +63,7 @@ func main() {
 		}
 	}
 
-	fmt.Println(validPassport+1, "valid passports")
+	fmt.Println(validPassport, "valid passports")
 }
 
 func hasValidFields(p string, fields []string) bool {
@@ -129,6 +130,22 @@ func validValue(s []string) bool {
 				return false
 			}
 		}
+	case "hcl":
+		val := s[1]
+		match, _ := regexp.MatchString("#([0-9]|[a-f]){6}", val)
+		return match
+	case "ecl":
+		val := s[1]
+		match, _ := regexp.MatchString("amb|blu|brn|gry|grn|hzl|oth", val)
+		return match
+	case "pid":
+		val := s[1]
+		match, _ := regexp.MatchString("[0-9]{9}", val)
+		return match
 	}
+
 	return true
 }
+
+// 196 too high
+// 195 too high
