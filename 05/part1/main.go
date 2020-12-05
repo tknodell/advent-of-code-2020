@@ -31,10 +31,10 @@ func main() {
 	}
 
 	fmt.Println()
-	findSeat("FBFBBFFRLR")
-	findSeat("BFFFBBFRRR")
-	findSeat("FFFBBBFRRR")
-	findSeat("BBFFBBFRLL")
+	// findSeat("FBFBBFFRLR")
+	// findSeat("BFFFBBFRRR")
+	// findSeat("FFFBBBFRRR")
+	// findSeat("BBFFBBFRLL")
 }
 
 func findSeat(s string) {
