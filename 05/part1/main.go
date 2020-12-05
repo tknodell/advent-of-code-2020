@@ -30,11 +30,22 @@ func main() {
 		findSeat(v)
 	}
 
+	fmt.Println()
 	findSeat("FBFBBFFRLR")
+	findSeat("BFFFBBFRRR")
+	findSeat("FFFBBBFRRR")
+	findSeat("BBFFBBFRLL")
 }
 
 func findSeat(s string) {
-	fmt.Println(s, calcRow(s), calcColumns(s))
+	row := calcRow(s)
+	col := calcColumns(s)
+	id := seatID(row, col)
+	fmt.Println(s, row, col, id)
+}
+
+func seatID(r, c int) int {
+	return r*8 + c
 }
 
 func popRows() []int {
