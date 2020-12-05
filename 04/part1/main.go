@@ -15,7 +15,7 @@ var requiredFields = []string{
 	"hcl",
 	"ecl",
 	"pid",
-	// "cid",
+	// "cid" ,
 }
 
 func readLines(path string) ([]string, error) {
@@ -48,15 +48,19 @@ func main() {
 				fmt.Println("passport is valid")
 				fmt.Println(Passport)
 				validPassport++
+			} else {
+				fmt.Println("invalid passport\n")
+				fmt.Println(Passport)
 			}
-			fmt.Println("new passport!\n")
+			fmt.Println("\n")
 			Passport = ""
 		} else {
 			Passport += v
+			// fmt.Println("adding", v)
 		}
 	}
 
-	fmt.Println(validPassport, "valid passports")
+	fmt.Println(validPassport+1, "valid passports")
 }
 
 func hasValidFields(p string, fields []string) bool {
@@ -69,3 +73,4 @@ func hasValidFields(p string, fields []string) bool {
 }
 
 // 234 too low
+// 235
