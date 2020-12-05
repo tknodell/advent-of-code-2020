@@ -6,7 +6,8 @@ import (
 	"os"
 )
 
-const TotalRows = 128
+const totalRows = 128
+const totalCols = 8
 
 func readLines(path string) ([]string, error) {
 	file, err := os.Open(path)
@@ -35,7 +36,7 @@ func main() {
 
 func popRows() []int {
 	var r []int
-	for i := 0; i < TotalRows; i++ {
+	for i := 0; i < totalRows; i++ {
 		r = append(r, i)
 	}
 	return r
@@ -55,6 +56,32 @@ func calcRow(s string) int {
 		}
 	}
 
-	fmt.Println(rows)
-	return len(rows)
+	fmt.Println(s, rows[0])
+	return rows[0]
+}
+
+func calcColumns(s string) int {
+	cols := popCols()
+
+	for _, v := range s {
+		letter := string(v)
+		fmt.Println(letter)
+		switch letter {
+		case "F":
+			cols = cols[0 : len(cols)/2]
+		case "B":
+			cols = cols[len(cols)/2:]
+		}
+	}
+
+	fmt.Println(cols)
+	return len(cols)
+}
+
+func popCols() []int {
+	var r []int
+	for i := 0; i < totalRows; i++ {
+		r = append(r, i)
+	}
+	return r
 }
