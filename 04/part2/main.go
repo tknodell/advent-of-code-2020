@@ -108,6 +108,27 @@ func validValue(s []string) bool {
 		if !(len(s[1]) == 4 && val >= 2020 && val <= 2030) {
 			return false
 		}
+	case "hgt":
+		val := s[1]
+		fmt.Println(val)
+
+		suffix := val[len(val)-2:]
+		value, err := strconv.Atoi(strings.Split(val, suffix)[0])
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		switch suffix {
+		case "cm":
+			if !(value >= 150 && value <= 193) {
+				fmt.Println("invalid cm value", value)
+				return false
+			}
+		case "in":
+			if !(value >= 59 && value <= 76) {
+				return false
+			}
+		}
 	}
 	return true
 }
