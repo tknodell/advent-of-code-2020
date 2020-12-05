@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -45,18 +46,19 @@ func main() {
 			// hit blank line
 
 			if hasValidFields(Passport, requiredFields) {
-				fmt.Println("passport is valid")
-				fmt.Println(Passport)
-				validPassport++
+				if hasValidValues(Passport) {
+					fmt.Println("passport is valid")
+					// fmt.Println(Passport)
+					validPassport++
+				}
 			} else {
 				fmt.Println("invalid passport\n")
 				fmt.Println(Passport)
 			}
-			fmt.Println("\n")
+			fmt.Println()
 			Passport = ""
 		} else {
 			Passport += v + " "
-			// fmt.Println("adding", v)
 		}
 	}
 
@@ -72,5 +74,40 @@ func hasValidFields(p string, fields []string) bool {
 	return true
 }
 
-// 234 too low
-// 235
+func hasValidValues(p string) bool {
+	fmt.Println("Eval", p)
+	passportSlice := strings.Split(p, " ")
+
+	for _, pass := range passportSlice {
+		if pass != "" {
+			fieldSlice := strings.Split(pass, ":")
+			fmt.Println(fieldSlice[0], fieldSlice[1])
+			if !validValue(fieldSlice) {
+				return false
+			}
+		}
+	}
+	fmt.Println(passportSlice)
+	return true
+}
+
+func validValue(s []string) bool {
+	switch s[0] {
+	case "byr":
+		val, _ := strconv.Atoi(s[1])
+		if !(len(s[1]) == 4 && val >= 1920 && val <= 2002) {
+			return false
+		}
+	case "iyr":
+		val, _ := strconv.Atoi(s[1])
+		if !(len(s[1]) == 4 && val >= 2010 && val <= 2020) {
+			return false
+		}
+	case "eyr":
+		val, _ := strconv.Atoi(s[1])
+		if !(len(s[1]) == 4 && val >= 2020 && val <= 2030) {
+			return false
+		}
+	}
+	return true
+}
