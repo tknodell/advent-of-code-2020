@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strconv"
 )
 
 const totalRows = 128
@@ -35,6 +36,17 @@ func main() {
 	// findSeat("BFFFBBFRRR")
 	// findSeat("FFFBBBFRRR")
 	// findSeat("BBFFBBFRLL")
+
+	// Part2
+	seatIds, _ := readLines("results2.csv")
+	for i, v := range seatIds {
+		seatID, _ := strconv.Atoi(v)
+		if (i + 75) != seatID {
+			fmt.Println("our seat ID is", seatID-1)
+			break
+		}
+	}
+
 }
 
 func findSeat(s string) {

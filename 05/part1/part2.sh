@@ -1,0 +1,1 @@
+awk '{print $4}' result.csv|sort -n > results2.csv
