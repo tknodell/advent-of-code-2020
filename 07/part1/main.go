@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"regexp"
+	"strconv"
 	"strings"
 )
 
@@ -47,16 +48,23 @@ func main() {
 			bag := strings.Split(inner[0], ",")
 
 			for _, b := range bag {
-				// Get our number to add
-				fmt.Println(strings.TrimSpace(b))
+				trimmedBag := strings.TrimSpace(b)
+				// Split after our first space to get the digit
+				// fmt.Println(trimmedBag)
+				result := strings.SplitN(trimmedBag, " ", 2)
+				// fmt.Println(result)
 
+				valueInInt, _ := strconv.Atoi(result[0])
+				fmt.Printf("Going to add %v of %v to outerBags\n", valueInInt, result[1])
+				outerBags[result[1]] += valueInInt
 			}
 			fmt.Println()
 		}
 	}
 
-	// for i, v := range outerBags {
-	// 	fmt.Println(i, v)
-	// }
+	fmt.Println("Final result")
+	for i, v := range outerBags {
+		fmt.Println(i, v)
+	}
 
 }
