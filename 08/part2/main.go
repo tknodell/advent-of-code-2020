@@ -3,11 +3,9 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"math/rand"
 	"os"
 	"strconv"
 	"strings"
-	"time"
 )
 
 func readLines(path string) ([]string, error) {
@@ -26,26 +24,27 @@ func readLines(path string) ([]string, error) {
 }
 
 func main() {
+	var count int
 
 	for {
-		lines, _ := readLines("test.txt")
-		loopAround, res := calc(lines)
+		lines, _ := readLines("input.txt")
+		loopAround, res := calc(lines, count)
 
 		if !loopAround {
 			fmt.Println()
 			fmt.Println("Part 2 answer is:", res)
 			os.Exit(0)
 		}
+		count++
 	}
 
 }
 
-func calc(lines []string) (bool, int) {
+func calc(lines []string, count int) (bool, int) {
 
 	var indexSeen []int
 	var index, accumulator int
 	var length int = len(lines)
-	var alreadySwapped bool
 
 	for {
 		indexSeen = append(indexSeen, index)
@@ -53,21 +52,16 @@ func calc(lines []string) (bool, int) {
 
 		num, _ := strconv.Atoi(instruction[1])
 
-		if instruction[0] == "jmp" && !alreadySwapped {
-			random := flipCoin()
-			if random == 1 {
-				fmt.Println("swapped jmp to nop!")
-				instruction[0] = "nop"
-				alreadySwapped = true
-			}
-		} else if instruction[0] == "nop" && !alreadySwapped {
-			random := flipCoin()
-			if random == 1 {
-				fmt.Println("swapped nop to jmp!")
-				instruction[0] = "jmp"
-				alreadySwapped = true
-			}
+		if instruction[0] == "jmp" && index == count {
+			fmt.Println("swapped jmp to nop! at", count)
+			fmt.Println(index, count)
+			instruction[0] = "nop"
 		}
+		// if dont get answer with above re-run with this
+		// else if instruction[0] == "nop" {
+		// 	fmt.Println("swapped nop to jmp!")
+		// 	instruction[0] = "jmp"
+		// }
 
 		switch instruction[0] {
 		case "acc":
@@ -102,13 +96,5 @@ func contains(s []int, e int) bool {
 	return false
 }
 
-func flipCoin() int {
-	rand.Seed(time.Now().UnixNano())
-
-	if flipint := rand.Intn(2); flipint == 0 {
-		return 0
-	}
-	return 1
-}
-
 // 622 too low
+// 4731 too high
