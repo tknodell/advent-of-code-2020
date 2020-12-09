@@ -24,16 +24,17 @@ func readLines(path string) ([]int, error) {
 }
 
 func main() {
-	targetNum := 127
-	lines, _ := readLines("test.txt")
+	// targetNum := 127
+	// lines, _ := readLines("test.txt")
 
-	// targetNum := 26796446
-	// lines, _ := readLines("input.txt")
+	targetNum := 26796446
+	lines, _ := readLines("input.txt")
 
 	for i := 0; i < len(lines); i++ {
-		for j := 0; j < len(lines); j++ {
-			if sumSlice(lines, i, j) == targetNum {
-				// fmt.Println(lines[i : i+j])
+		for j := 0; j < len(lines)-i; j++ {
+			sumResult := sumSlice(lines, i, j)
+			if sumResult == targetNum {
+				fmt.Println(lines[i : i+j])
 				fmt.Println("FOUND IT", targetNum)
 				fmt.Println("ANSWER")
 				fmt.Println(smallestPlusLargestNum(lines[i : i+j]))
@@ -41,7 +42,6 @@ func main() {
 			}
 		}
 	}
-
 }
 
 func sumSlice(n []int, start, length int) int {
@@ -50,7 +50,6 @@ func sumSlice(n []int, start, length int) int {
 	for _, v := range bar {
 		sum += v
 	}
-	fmt.Println(bar, sum)
 	return sum
 }
 
