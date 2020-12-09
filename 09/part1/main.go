@@ -24,13 +24,23 @@ func readLines(path string) ([]int, error) {
 }
 
 func main() {
-	preambleLength := 5
+	preambleLength := 25
 	preambleStart := 0
 
-	lines, _ := readLines("test.txt")
+	lines, _ := readLines("input.txt")
 
-	preamble := getPreamble(lines, preambleStart, preambleLength)
-	fmt.Println(validNextNum(preamble, 40))
+	for index, line := range lines {
+		// make sure we're not in the preamble
+		if index >= preambleLength {
+			preamble := getPreamble(lines, preambleStart, preambleLength)
+			isValidNum := validNextNum(preamble, line)
+			fmt.Println(line, isValidNum, preamble)
+			if !isValidNum {
+				os.Exit(0)
+			}
+			preambleStart++
+		}
+	}
 }
 
 func getPreamble(n []int, start, length int) []int {
@@ -45,6 +55,7 @@ func validNextNum(n []int, num int) bool {
 			}
 		}
 	}
-
 	return false
 }
+
+// 229 not right
