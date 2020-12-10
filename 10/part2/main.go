@@ -6,22 +6,20 @@ import (
 	"os"
 	"sort"
 	"strconv"
-
-	combo "github.com/mxschmitt/golang-combinations"
 )
 
-func readLines(path string) ([]string, error) {
+func readLines(path string) ([]int, error) {
 	file, err := os.Open(path)
 	if err != nil {
 		return nil, err
 	}
 	defer file.Close()
 
-	var lines []string
+	var lines []int
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-		// value, _ := strconv.Atoi(scanner.Text())
-		lines = append(lines, scanner.Text())
+		value, _ := strconv.Atoi(scanner.Text())
+		lines = append(lines, value)
 	}
 	return lines, scanner.Err()
 }
@@ -29,40 +27,36 @@ func readLines(path string) ([]string, error) {
 func main() {
 	lines, _ := readLines("test.txt")
 
-	lines = append(lines, "0")
-	// sort.Ints(lines)
+	lines = append(lines, 0)
 
+	// add adapter
+	lines = append(lines, 3)
+
+	sort.Ints(lines)
+
+	origLen := len(lines)
 	fmt.Println(lines)
-
-	combinations := combo.All(lines)
-	fmt.Println(len(combinations))
-
-	var validCombo int
-
-	// var differences []int
-	for i := 0; i < len(combinations); i++ {
-		com := stringsToInts(combinations[i])
-
-		// add adapter
-		com = append(com, 3)
-
-		validJoltage(com)
-		fmt.Println(validJoltage(com))
+	for i := 0; i < origLen; i++ {
+		fmt.Println(lines)
+		fmt.Println(validJoltage(lines))
+		lines = lines[1:]
 	}
 
-	fmt.Println(validCombo)
+	fmt.Println(validJoltage(lines))
+
 }
 
 func validJoltage(sequence []int) bool {
 	sort.Ints(sequence)
-	fmt.Println(sequence)
+	// fmt.Println(sequence)
 
 	for j := 0; j < len(sequence)-1; j++ {
 		difference := sequence[j+1] - sequence[j]
+		fmt.Println(difference)
 		if difference > 3 {
 			return false
 		}
-		fmt.Println(sequence[j])
+		// fmt.Println(sequence[j])
 	}
 	return true
 }
