@@ -21,8 +21,14 @@ def calcDirection(current, angle):
 
     for key, value in directions.items():
         if value == directionAngle:
-            print("New direction is", key)
+            # print("New direction is", key)
             return key
+
+def manhattanDistance(pos):
+    x = abs(pos["east"]-pos["west"])
+    y = abs(pos["south"]-pos["north"])
+
+    return x+y
 
 # 0 90 180 270
 initDirection = "east"
@@ -50,4 +56,6 @@ for line in lines:
     if direction == "W":
         position["west"] += steps
 
-print(position)
+    # print(position)
+
+print(manhattanDistance(position))
