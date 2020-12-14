@@ -3,7 +3,7 @@ import copy
 
 seat_map = []
 
-with open('test.txt') as fp:
+with open('input.txt') as fp:
    line = fp.readline()
    map_row = []
    while line:
@@ -45,7 +45,7 @@ def countOccupiedSeats(grid):
 
 maxCount = 0
 
-while maxCount < 10:
+while maxCount < 100:
     seatsChange = False
 
     # copy seat map so we can apply simultaneously
