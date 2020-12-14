@@ -1,6 +1,6 @@
 lines = []
 
-with open('test.txt') as fp:
+with open('input.txt') as fp:
     line = fp.readline()
     map_row = []
     while line:
@@ -18,6 +18,7 @@ directions = {
 def calcDirection(current, angle):
     directionAngle=directions[current]
     directionAngle+=angle
+    directionAngle = directionAngle % 360
 
     for key, value in directions.items():
         if value == directionAngle:
@@ -30,19 +31,21 @@ def manhattanDistance(pos):
 
     return x+y
 
-# 0 90 180 270
 initDirection = "east"
 position = {"north": 0, "east": 0, "south": 0, "west": 0}
 
 currentDirection = initDirection
 
 for line in lines:
+    # print(line)
     direction = line[:1]
     steps = int(line[1:])
 
     # rotate by angle
     if direction == "R":
         currentDirection = calcDirection(currentDirection,steps)
+    if direction == "L":
+        currentDirection = calcDirection(currentDirection,-steps)
 
     # move number of steps
     if direction == "F":
@@ -56,6 +59,6 @@ for line in lines:
     if direction == "W":
         position["west"] += steps
 
-    # print(position)
+    print(position)
 
 print(manhattanDistance(position))
