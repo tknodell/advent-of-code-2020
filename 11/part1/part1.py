@@ -29,26 +29,29 @@ def countAdajcentSeats(map, currentSeatX, currentSeatY):
     print("num of rows",rows)
     print("num of seats in row #",currentSeatY,seats)
 
+    currentSeatX=currentSeatX-1
+    currentSeatY=currentSeatY-1
+
     # up
-    if currentSeatX==0:
+    if currentSeatX-1<=0:
         print("on top row, skipping up")
     else:
         print(map[currentSeatX-1][currentSeatY])
 
     # down
-    if currentSeatY==rows:
+    if currentSeatY-1<=rows:
         print("on bottom row, skipping down")
     else:
         print(map[currentSeatX+1][currentSeatY])
 
     # left
-    if currentSeatX == 0:
+    if currentSeatY-1 <= 0:
         print("on leftmost row, skipping")
     else:
         print(map[currentSeatX][currentSeatY-1])
 
     # right
-    if currentSeatX == seats:
+    if currentSeatY-1 <= seats:
         print("on rightmost row, skipping")
     else:
         print(map[currentSeatX][currentSeatY+1])
