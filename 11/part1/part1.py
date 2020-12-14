@@ -1,4 +1,5 @@
 from collections import Counter
+import copy
 
 seat_map = []
 
@@ -6,7 +7,7 @@ with open('test.txt') as fp:
    line = fp.readline()
    map_row = []
    while line:
-     seat_map.append(line[:-1])
+     seat_map.append(list(line[:-1]))
      line = fp.readline()
 
 def countAdajcentSeats(grid, x, y):
@@ -30,14 +31,26 @@ def countAdajcentSeats(grid, x, y):
     if y < rows - 1:
         neighbors.append(grid[x][y+1]) # right
 
-    print(neighbors)
-    print(Counter(neighbors))
+    # print(neighbors)
+    # print(Counter(neighbors))
+    return Counter(neighbors)
+
+# copy seat map so we can apply simultaneously
+seat_map_original = copy.deepcopy(seat_map)
+
+for i=0;i<1;i++:
+    for row in range(len(seat_map_original)):
+        for col in range(len(seat_map_original[0])):
+            currentSeat = seat_map_original[row][col]
+            neighborCount = countAdajcentSeats(seat_map_original, row, col)
+
+            # print(currentSeat,neighborCount)
+            if currentSeat=="L" and neighborCount["#"]==0:
+                # print("occuping", row,col)
+                seat_map[row][col]= "#"
+
+            # if currentSeat=="#" and neighborCount["#"]>=4:
+            #     print("clearing", row,col)
 
 for seat in seat_map:
     print(seat)
-
-print("---")
-countAdajcentSeats(seat_map,0,0)
-countAdajcentSeats(seat_map,0,9)
-countAdajcentSeats(seat_map,9,0)
-countAdajcentSeats(seat_map,9,9)
