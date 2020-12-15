@@ -1,6 +1,6 @@
 lines = []
 
-with open('test.txt') as fp:
+with open('input.txt') as fp:
     line = fp.readline()
     map_row = []
     while line:
@@ -22,7 +22,6 @@ i=0
 print(validSched)
 for i in range(departTime-10,maxTime+10):
     print(i)
-    minsAfter=i%60
  
     for sched in validSched:
         if departTime<i and i%sched==0:
