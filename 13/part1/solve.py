@@ -25,10 +25,7 @@ for i in range(departTime-10,maxTime+10):
     minsAfter=i%60
  
     for sched in validSched:
-        if i%sched==0:
-            print("bus {} departing {} after the hour, have to wait {} minutes".format(sched,i%60,i-departTime))
-
-    # print(i,minsAfter)
-    # if minsAfter in validSched:
-    #     print("bus {} departing at {}").format(minsAfter,i)
+        if departTime<i and i%sched==0:
+            print("bus {} departing {} after the hour, have to wait {} minutes. id is {}".format(sched,i%60,i-departTime, (i-departTime)*sched))
+            exit(0)
     i = i+1
