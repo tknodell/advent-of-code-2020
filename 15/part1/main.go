@@ -8,7 +8,8 @@ func main() {
 	// input := []int{0, 3, 6} // test input
 	input := []int{1, 0, 16, 5, 17, 4}
 
-	fmt.Println("Answer after 2020 runs", Play(input, 2020))
+	// fmt.Println("Answer after 2020 runs", Play(input, 2020))
+	fmt.Println("Answer after 30000000 runs", Play(input, 30000000))
 }
 
 func Play(starting []int, maxTurns int) int {
@@ -29,7 +30,7 @@ func Play(starting []int, maxTurns int) int {
 		}
 
 		lastSpoken[previous] = turn - 1
-		fmt.Println(speak)
+		// fmt.Println(speak)
 	}
 
 	return speak
