@@ -1,6 +1,6 @@
 lines = []
 
-with open('test.txt') as fp:
+with open('input.txt') as fp:
     line = fp.readline()
     map_row = []
     while line:
@@ -19,7 +19,7 @@ for rule in rules.split("\n"):
     firstRange = rule.split("or")[0].split(" ")[1]
     secondRange = rule.split("or")[1].split(" ")[1]
 
-    # print(ruleName,firstRange, secondRange)
+    print(ruleName,firstRange, secondRange)
     for v in (firstRange,secondRange):
         nums = v.split('-')
         for num in range(int(nums[0]),int(nums[1])+1):
@@ -27,4 +27,15 @@ for rule in rules.split("\n"):
                 validNums.append(num)
     validNums.sort()
 
-print(validNums)
+# print(validNums)
+
+errorRate = 0
+
+for i,v in enumerate(nearbyTickets.split("\n")):
+    if i!=0: # skip first line
+        nearbyNums = v.split(',')
+        for num in map(int, nearbyNums): # use map to convert num to int
+            if num not in validNums:
+                errorRate+=num
+
+print(errorRate)
