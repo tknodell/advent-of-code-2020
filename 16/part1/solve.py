@@ -16,10 +16,11 @@ validNums=[]
 
 for rule in rules.split("\n"):
     ruleName = rule.split(":")[0]
-    firstRange = rule.split("or")[0].split(" ")[1]
-    secondRange = rule.split("or")[1].split(" ")[1]
+    rules = rule.split(":")[1]
+    firstRange = rules.split("or")[0].split(" ")[1]
+    secondRange = rules.split("or")[1].split(" ")[1]
 
-    print(ruleName,firstRange, secondRange)
+    # print(ruleName,firstRange, secondRange)
     for v in (firstRange,secondRange):
         nums = v.split('-')
         for num in range(int(nums[0]),int(nums[1])+1):
