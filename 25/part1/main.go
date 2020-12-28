@@ -2,32 +2,10 @@ package main
 
 import (
 	"fmt"
-	"log"
+	"math/big"
 )
 
-func transformSubjectNumber(subjectNumber, loopSize int) int {
-	value := 1
-	for i := 0; i < loopSize; i++ {
-		value = value * subjectNumber
-		value = value % 20201227
-	}
-	return value
-}
-
-func findLoopSize(publicKey int) (int, int) {
-	subjectSize := 7
-	maxLoop := 10000000
-	for loopSize := 0; loopSize < maxLoop; loopSize++ {
-		if transformSubjectNumber(subjectSize, loopSize) == publicKey {
-			return subjectSize, loopSize
-		}
-	}
-	log.Fatal("Couldnt find loop size with max of ", subjectSize, maxLoop)
-	return -1, -1
-}
-
 func main() {
-
 	//  Test inputs
 	// cardPublicKey := 5764801
 	// doorPublicKey := 17807724
@@ -36,25 +14,21 @@ func main() {
 	cardPublicKey := 19774466
 	doorPublicKey := 7290641
 
-	fmt.Println("Card public key", cardPublicKey)
-	cardSubject, cardLoop := findLoopSize(cardPublicKey)
-	fmt.Println("FOUND")
-	fmt.Printf("subject number: %v, loop size: %v", cardSubject, cardLoop)
+	value := 1
+	loop_size := 0
 
-	fmt.Println()
-	fmt.Println()
+	for value != cardPublicKey {
+		value = (value * 7) % 20201227
+		loop_size++
+	}
 
-	fmt.Println("Door public key", doorPublicKey)
-	doorSubject, doorLoop := findLoopSize(doorPublicKey)
-	fmt.Println("FOUND")
-	fmt.Printf("subject number: %v, loop size: %v", doorSubject, doorLoop)
+	fmt.Println("Found loop size:", loop_size)
 
-	fmt.Println()
-	fmt.Println()
+	var encryptionKey = new(big.Int)
+	encryptionKey.Exp(
+		big.NewInt(int64(doorPublicKey)),
+		big.NewInt(int64(loop_size)),
+		big.NewInt(20201227))
 
-	fmt.Println("Encryption key", cardPublicKey, doorLoop)
-	fmt.Println(transformSubjectNumber(cardPublicKey, doorLoop))
-
-	fmt.Println("Encryption key", doorPublicKey, cardLoop)
-	fmt.Println(transformSubjectNumber(doorPublicKey, cardLoop))
+	fmt.Println("Encryption key:", encryptionKey)
 }
