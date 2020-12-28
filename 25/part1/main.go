@@ -15,16 +15,14 @@ func transformSubjectNumber(subjectNumber, loopSize int) int {
 }
 
 func findLoopSize(publicKey int) (int, int) {
-	maxSubject := 1000
-	maxLoop := 1000
-	for subjectNumber := 0; subjectNumber < maxSubject; subjectNumber++ {
-		for loopSize := 0; loopSize < maxLoop; loopSize++ {
-			if transformSubjectNumber(subjectNumber, loopSize) == publicKey {
-				return subjectNumber, loopSize
-			}
+	subjectSize := 7
+	maxLoop := 10000000
+	for loopSize := 0; loopSize < maxLoop; loopSize++ {
+		if transformSubjectNumber(subjectSize, loopSize) == publicKey {
+			return subjectSize, loopSize
 		}
 	}
-	log.Fatal("Couldnt find loop size with max of ", maxSubject, maxLoop)
+	log.Fatal("Couldnt find loop size with max of ", subjectSize, maxLoop)
 	return -1, -1
 }
 
@@ -59,5 +57,4 @@ func main() {
 
 	fmt.Println("Encryption key", doorPublicKey, cardLoop)
 	fmt.Println(transformSubjectNumber(doorPublicKey, cardLoop))
-
 }
